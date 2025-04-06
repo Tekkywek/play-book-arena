@@ -1,6 +1,6 @@
 
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -33,6 +33,10 @@ const Login = () => {
       // Simulate API call
       console.log("Login attempt:", { email, password, rememberMe });
       await new Promise((resolve) => setTimeout(resolve, 1500));
+      
+      // Store login status in localStorage to persist across refreshes
+      localStorage.setItem("isAuthenticated", "true");
+      localStorage.setItem("userEmail", email);
       
       toast({
         title: "Welcome back!",

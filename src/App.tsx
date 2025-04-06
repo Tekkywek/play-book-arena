@@ -25,6 +25,12 @@ const App = () => (
           <Route path="/login" element={<Login />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/sports" element={<Sports />} />
+          <Route path="/features" element={<Sports />} /> {/* Temporarily pointing to Sports */}
+          <Route path="/pricing" element={<Dashboard />} /> {/* Temporarily pointing to Dashboard */}
+          <Route path="/about" element={<Index />} /> {/* Temporarily pointing to Index */}
+          <Route path="/profile" element={<Dashboard />} /> {/* Temporarily pointing to Dashboard */}
+          <Route path="/workouts" element={<Sports />} /> {/* Temporarily pointing to Sports */}
+          <Route path="/teams" element={<Dashboard />} /> {/* Temporarily pointing to Dashboard */}
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

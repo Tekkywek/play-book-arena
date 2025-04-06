@@ -1,14 +1,38 @@
 
-import { useState } from "react";
-import { Link } from "react-router-dom";
-import { Menu, X, User, LogIn, BarChart2, Users, BookOpen } from "lucide-react";
+import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { Menu, X, User, LogIn, BarChart2, Users, BookOpen, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { toast } from "@/components/ui/use-toast";
 
 const Navbar = () => {
+  const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [userEmail, setUserEmail] = useState("");
   
-  // Mock authentication state - replace with actual auth later
-  const isAuthenticated = false;
+  // Check authentication status on component mount
+  useEffect(() => {
+    const authStatus = localStorage.getItem("isAuthenticated") === "true";
+    const email = localStorage.getItem("userEmail") || "";
+    
+    setIsAuthenticated(authStatus);
+    setUserEmail(email);
+  }, []);
+  
+  // Handle logout
+  const handleLogout = () => {
+    localStorage.removeItem("isAuthenticated");
+    localStorage.removeItem("userEmail");
+    setIsAuthenticated(false);
+    
+    toast({
+      title: "Logged out successfully",
+      description: "You have been logged out of your account."
+    });
+    
+    navigate("/");
+  };
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-playbook-neutral bg-white/95 backdrop-blur-sm">
@@ -28,6 +52,9 @@ const Navbar = () => {
           <Link to="/pricing" className="text-sm font-medium hover:text-playbook-primary transition-colors">
             Pricing
           </Link>
+          <Link to="/sports" className="text-sm font-medium hover:text-playbook-primary transition-colors">
+            Sports
+          </Link>
           <Link to="/about" className="text-sm font-medium hover:text-playbook-primary transition-colors">
             About
           </Link>
@@ -43,13 +70,16 @@ const Navbar = () => {
               <Link to="/teams" className="text-sm font-medium hover:text-playbook-primary transition-colors">
                 Teams
               </Link>
-              <Link to="/matches" className="text-sm font-medium hover:text-playbook-primary transition-colors">
-                Matches
-              </Link>
-              <Button variant="outline" size="sm" className="gap-2">
-                <User size={16} />
-                Profile
-              </Button>
+              <div className="flex items-center gap-2">
+                <Button variant="outline" size="sm" className="gap-1" onClick={() => navigate("/profile")}>
+                  <User size={16} />
+                  {userEmail ? userEmail.split('@')[0] : "Profile"}
+                </Button>
+                <Button variant="ghost" size="sm" className="gap-1 text-red-500" onClick={handleLogout}>
+                  <LogOut size={16} />
+                  Logout
+                </Button>
+              </div>
             </>
           ) : (
             <>
@@ -98,6 +128,13 @@ const Navbar = () => {
             Pricing
           </Link>
           <Link 
+            to="/sports"
+            className="block py-2 hover:text-playbook-primary"
+            onClick={() => setIsMenuOpen(false)}
+          >
+            Sports
+          </Link>
+          <Link 
             to="/about"
             className="block py-2 hover:text-playbook-primary"
             onClick={() => setIsMenuOpen(false)}
@@ -128,22 +165,32 @@ const Navbar = () => {
               >
                 Teams
               </Link>
-              <Link 
-                to="/matches"
-                className="block py-2 hover:text-playbook-primary"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Matches
-              </Link>
-              <Button 
-                variant="outline" 
-                size="sm" 
-                className="w-full justify-start gap-2"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                <User size={16} />
-                Profile
-              </Button>
+              <div className="flex flex-col gap-2">
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  className="w-full justify-start gap-2"
+                  onClick={() => {
+                    setIsMenuOpen(false);
+                    navigate("/profile");
+                  }}
+                >
+                  <User size={16} />
+                  {userEmail ? userEmail.split('@')[0] : "Profile"}
+                </Button>
+                <Button 
+                  variant="ghost" 
+                  size="sm" 
+                  className="w-full justify-start gap-2 text-red-500"
+                  onClick={() => {
+                    setIsMenuOpen(false);
+                    handleLogout();
+                  }}
+                >
+                  <LogOut size={16} />
+                  Logout
+                </Button>
+              </div>
             </>
           ) : (
             <>
