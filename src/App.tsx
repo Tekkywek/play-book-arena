@@ -10,6 +10,9 @@ import SignUp from "./pages/SignUp";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import Sports from "./pages/Sports";
+import Teams from "./pages/Teams";
+import Pricing from "./pages/Pricing";
+import Features from "./pages/Features";
 
 const queryClient = new QueryClient();
 
@@ -25,12 +28,12 @@ const App = () => (
           <Route path="/login" element={<Login />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/sports" element={<Sports />} />
-          <Route path="/features" element={<Sports />} /> {/* Temporarily pointing to Sports */}
-          <Route path="/pricing" element={<Dashboard />} /> {/* Temporarily pointing to Dashboard */}
-          <Route path="/about" element={<Index />} /> {/* Temporarily pointing to Index */}
-          <Route path="/profile" element={<Dashboard />} /> {/* Temporarily pointing to Dashboard */}
-          <Route path="/workouts" element={<Sports />} /> {/* Temporarily pointing to Sports */}
-          <Route path="/teams" element={<Dashboard />} /> {/* Temporarily pointing to Dashboard */}
+          <Route path="/features" element={<Features />} />
+          <Route path="/pricing" element={<Pricing />} />
+          <Route path="/about" element={<Index />} /> {/* Still temporarily pointing to Index */}
+          <Route path="/profile" element={<Dashboard />} /> {/* Still temporarily pointing to Dashboard */}
+          <Route path="/workouts" element={<Sports />} /> {/* Still temporarily pointing to Sports */}
+          <Route path="/teams" element={<Teams />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
