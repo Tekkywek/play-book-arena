@@ -1,5 +1,5 @@
 
-import { Basketball, Trophy } from "lucide-react";
+import { Trophy, Award } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 
@@ -58,7 +58,7 @@ const Sports = () => {
           <SportCard 
             title="Basketball" 
             description="Improve your shooting, dribbling, and court awareness with position-specific drills and analytics. Connect with teammates, track game stats, and find pickup games in your area."
-            icon={Basketball}
+            icon={Award}
             imageUrl="https://images.unsplash.com/photo-1546519638-68e109acd27d?q=80&w=2680&auto=format&fit=crop"
           />
           
